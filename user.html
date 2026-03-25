@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>User Page</title>
+    <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+    <!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="nav-left">
+        <h1 class="restaurant-name">Pizzaholic</h1>
+    </div>
+
+   <div class="nav-center">
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="Search dishes or offers...">
+        
+    </div>
+</div>
+
+    <div class="nav-right">
+    <span class="nav-link" id="contact-link"><i class="fas fa-phone"></i> Contact</span>
+    <span class="nav-link" id="location-link"><i class="fas fa-map-marker-alt"></i> Location</span>
+    <!--profile-->
+    <div id="profile-icon">
+        <i class="fa-solid fa-user"></i>
+    </div>
+</div>
+</div>
+</nav>
+<!--profile menu-->
+<div id="profile-menu" class="hidden">
+    <div id="profile-info">
+        <span id="profile-name"></span>
+    </div>
+
+    <div class="profile-option" id="orderBtn">
+        <i class="fa-solid fa-box"></i> Orders
+    </div>
+
+    <div class="profile-option" id="rewardBtn">
+        <i class="fa-solid fa-gift"></i> Rewards
+    </div>
+
+    <div class="profile-option" id="logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </div>
+</div>
+
+<!--mobile search-->
+<div id="mobileSearch">
+   <div class="search-container">
+        <input type="text" id="search-bar-mobile" placeholder="Search dishes or offers...">
+        
+    </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<section id="contact-section" class="hidden">
+
+  <div class="contact-header">
+    <button id="back-from-contact">⬅ Back</button>
+    <h2>Contact Us</h2>
+  </div>
+
+ 
+  <div class="contact-socials">
+    <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
+    <a href="#" class="social-btn facebook"><i class="fab fa-facebook"></i></a>
+    <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+    <a href="tel:+919876543210" class="social-btn call"><i class="fas fa-phone"></i></a>
+    <a href="mailto:your@email.com" class="social-btn email"><i class="fas fa-envelope"></i></a>
+  </div>
+
+  <!-- CONTACT FORM -->
+  <form id="contact-form" action="https://formspree.io/f/mojkbjda" method="POST" enctype="multipart/form-data">
+
+    <div class="form-group">
+      <input type="text" name="name" placeholder="Your Name *" required>
+    </div>
+
+    <div class="form-group">
+      <input type="tel" name="phone" placeholder="Phone Number *" required>
+    </div>
+
+    <div class="form-group">
+      <input type="email" name="email" placeholder="Email *" required>
+    </div>
+
+    <div class="form-group">
+      <input type="text" name="orderId" placeholder="Order ID (optional)">
+    </div>
+
+    <div class="form-group file-upload">
+      <label><i class="fas fa-paperclip"></i> Attach File</label>
+      <input type="file" name="attachment" accept=".jpg,.png,.pdf">
+    </div>
+
+    <div class="form-group">
+      <textarea name="message" placeholder="Your Message..." rows="4"></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">
+      <i class="fas fa-paper-plane"></i> Send Message
+    </button>
+
+  </form>
+
+  <p id="form-status" class="hidden"></p>
+
+  <button id="chat-btn">
+  💬 Have any problem?
+</button>
+</section>
+<!--chat popup-->
+<div id="chat-popup" class="hidden">
+  <div class="chat-box">
+    
+    <div class="chat-header">
+      <span>Support Chat</span>
+      <button id="close-chat">✖</button>
+    </div>
+
+    <div id="chat-messages"></div>
+
+    <div id="chat-options"></div>
+
+  </div>
+</div>
+<div id="page-content">
+
+
+
+<!-- Search Results -->
+<div id="search-results" class="search-results hidden"></div>
+
+
+<!-- Special Offer Banner -->
+<section class="offer-banner" id="offerBanner">
+
+    <div class="offer-content">
+
+        <h2 id="offerHeading"></h2>
+
+        <p id="offerDescription"></p>
+
+        <button class="offer-btn" id="offerButton"></button>
+
+    </div>
+
+</section>
+
+<!-- Categories Header -->
+<div class="categories-header">
+    <h2 class="categories-title">Taste the Magic</h2>
+    <button class="full-menu-btn">
+        <i class="fas fa-utensils"></i> Full Menu
+    </button>
+</div>
+
+<section id="random-menu-section" class="menu-section">
+  <div class="menu-cards-container" id="random-menu-container"></div>
+</section>
+
+<!-- Enjoy Offers Section -->
+<section class="enjoy-offers">
+    <h2 class="section-title">Enjoy Our Offers</h2>
+    <div class="offers-container" id="offersContainer">
+        <!-- Offer cards will be added dynamically -->
+    </div>
+</section>
+</div>
+<!--cart-->
+<div id="cart-icon">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span id="cart-count">0 items</span>
+</div>
+<!--full  menu-->
+<section id="full-menu-section" class="hidden">
+    <div class="menu-header">
+        <button id="close-menu">✖</button>
+    </div>
+
+    <div class="menu-content">
+        <div class="menu-layout">
+
+    <!-- LEFT CATEGORY NAVIGATION -->
+    <div class="menu-categories">
+
+        <div class="menu-category active" data-category="pizza">
+            <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_366/RX_THUMBNAIL/IMAGES/VENDOR/2024/6/26/d112a6d7-d173-4ca7-a5ee-40f845719d18_841144.JPG">
+            <span>Pizzas</span>
+        </div>
+
+        <div class="menu-category" data-category="burger">
+            <img src="https://www.foodandwine.com/thmb/DI29Houjc_ccAtFKly0BbVsusHc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/crispy-comte-cheesburgers-FT-RECIPE0921-6166c6552b7148e8a8561f7765ddf20b.jpg">
+            <span>Burgers</span>
+        </div>
+
+        <div class="menu-category" data-category="shakes">
+            <img src="https://cdn.uengage.io/uploads/18085/image-642627-1717587950.jpeg">
+            <span>Shakes</span>
+        </div>
+
+        <div class="menu-category" data-category="sides">
+            <img src="https://static.toiimg.com/photo/54659021.cms">
+            <span>Sides</span>
+        </div>
+
+        <div class="menu-category" data-category="pasta">
+            <img src="https://www.spicebangla.com/wp-content/uploads/2024/08/Spicy-Pasta-recipe-optimised-scaled.webp">
+            <span>Pastas</span>
+        </div>
+
+        <div class="menu-category" data-category="dessert">
+            <img src="https://www.bakels.in/wp-content/uploads/sites/15/2019/10/unnamed.jpg">
+            <span>Desserts</span>
+        </div>
+               <div class="menu-category" data-category="offers">
+            <img src="https://img.freepik.com/free-vector/sale-offer-label-banner-discount-offer-promotion_157027-1250.jpg">
+            <span>Offers</span>
+        </div>
+    </div>
+
+
+    <!-- RIGHT FOOD ITEMS -->
+<div class="menu-items">
+                <select id="sort-select">
+        <option value="default" class="sort-opt">Sort By</option>
+        <option value="low-high"class="sort-opt">Price: Low → High</option>
+        <option value="high-low"class="sort-opt">Price: High → Low</option>
+    </select>   
+    <div class="menu-group active" id="pizza"> </div>
+    <div class="menu-group" id="burger"></div>
+    <div class="menu-group" id="shakes"></div>
+    <div class="menu-group" id="sides"></div>
+    <div class="menu-group" id="pasta"></div>
+    <div class="menu-group" id="dessert"></div>
+    <div class="menu-group" id="offers"></div>
+</div>
+</div>
+
+    </div>
+</section>
+
+<!--rate popup-->
+<div id="rating-popup" class="hidden">
+
+<div class="rating-box">
+
+<h2>Rate Your Order</h2>
+
+<div id="rating-items"></div>
+
+<button id="submit-ratings">Submit</button>
+<button id="close-rating">Close</button>
+
+</div>
+
+</div>
+
+<!-- Rating Success Popup -->
+<div id="rating-success-popup" class="hidden">
+  <div class="rating-success-box">
+    <p>Thanks for rating your food!</p>
+    <button id="rating-success-ok">OK</button>
+  </div>
+</div>
+
+<!-- FOOD POPUP -->
+<div id="food-popup" class="popup hidden">
+    <div class="popup-content">  
+        <button id="close-popup">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="popup-body">
+            <!-- LEFT IMAGE -->
+            <div class="popup-image">
+                <img id="popup-img" src="" alt="Food Image">
+            </div>
+            <!-- RIGHT DETAILS -->
+            <div class="popup-details">
+                <h2 id="popup-name"></h2>
+                <p id="popup-desc">
+                </p>
+                <h3 id="popup-price">₹</h3>
+                <div class="order-icons">
+                    <div id="popup-rating"></div>
+                </div>
+            </div>
+        </div>
+  <button id="popup-add-cart"><i class="fa-solid fa-plus"></i> Add</button>
+
+    </div>
+
+</div>
+
+<!-- AUTH POPUP -->
+<div id="auth-popup" class="popup-a hidden">
+
+  <div class="popup-content-a auth-box">
+
+    <button id="close-auth">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <h2>Login</h2>
+    <p>Continue with your Google account</p>
+
+    <button id="google-login-btn" class="google-btn">
+        <i class="fa-brands fa-google"></i>
+        Continue with Google
+    </button>
+
+  </div>
+
+</div>
+
+<!--cart popup-->
+<div id="cart-popup" class="hidden">
+<button id="close-cart">
+<i class="fa-solid fa-xmark"></i>
+</button>
+<h2>Your Cart</h2>
+
+<div id="cart-items"></div>
+<div id="instruction-section">
+  <label for="order-instructions">📝 Special Instructions</label>
+  <input type="text" id="order-instructions"  placeholder="e.g. No onions, extra cheese, less spicy...">
+</div>
+<div id="discount-section">
+
+<input type="text" id="discount-input" placeholder="Enter coupon code">
+
+<button id="apply-discount">Apply</button>
+
+<div id="discount-message"></div>
+
+</div>
+<div id="applied-coupon" class="hidden">
+    <span id="applied-coupon-text"></span>
+    <button id="remove-coupon">✖</button>
+</div>
+<div id="delivery-note" style="color:#ff5722; font-size:14px; margin-top:5px;"></div>
+
+<div id="cart-total">
+
+<div>Total: <span id="total-price">₹0</span></div>
+
+<button id="order-btn">Order Now</button>
+
+</div>
+
+</div>
+
+<!--orders popup-->
+<!-- Orders Popup -->
+<div class="orders-popup hidden" id="orders-popup">
+  <div class="orders-box">
+    <div class="orders-header">
+      <h2>My Orders</h2>
+      <button id="close-orders">&times;</button>
+    </div>
+
+    <!-- Each order -->
+    <div id="orders-container">
+      <!-- Orders will be dynamically added here -->
+    </div>
+  </div>
+</div>
+
+<!--order details like address and payment option-->
+<div id="order-details-popup" class="hidden">
+  <div class="popup-content-o">
+    <h3>Select Address & Payment</h3>
+
+    <!-- SAVED ADDRESSES -->
+    <div id="saved-addresses"></div>
+
+    <!-- ADD ADDRESS BUTTON -->
+    <div id="add-address-btn">
+      <i class="fa-solid fa-plus"></i> Add New Address
+    </div>
+
+    <!-- ADDRESS FORM -->
+    <div id="address-form-container">
+      <form id="address-form">
+
+        <input type="text" id="addr-name" placeholder="Full Name" required />
+        <input type="text" id="addr-phone" placeholder="Phone Number" required />
+        <input type="text" id="addr-pincode" value="110092" readonly />
+        <input type="text" id="addr-city" value="New Delhi" readonly />
+        <input type="text" id="addr-building" placeholder="Building/Home No." required />
+        <input type="text" id="addr-street" placeholder="Street No. (optional)" />
+        <input type="text" id="addr-landmark" placeholder="Landmark (optional)" />
+
+      </form>
+    </div>
+
+    <!-- PAYMENT -->
+    <h4>Payment Method</h4>
+    <label><input type="radio" name="payment" value="Cash" checked /> Cash</label>
+    <label><input type="radio" name="payment" value="UPI" /> UPI</label>
+
+    <div id="upi-instructions" style="display:none">
+      Delivery boy will give a QR scanner to pay.
+    </div>
+
+    <div class="popup-buttons">
+      <button id="place-order-btn">Place Order</button>
+      <button id="cancel-order">Cancel</button>
+    </div>
+
+  </div>
+</div>
+
+<!--orderplaced alert-->
+<div id="order-success-popup" class="hidden">
+  <div class="success-box">
+    <h3>🎉 Order Placed Successfully</h3>
+    <p>Your food is being prepared.</p>
+    <button id="success-ok-btn">OK</button>
+  </div>
+</div>
+<!--rewards popup-->
+<div id="rewards-popup" class="hidden">
+  <div class="orders-box">
+    <div class="orders-header">
+      <h2>Your Rewards</h2>
+      <button id="close-rewards">&times;</button>
+    </div>
+
+    <div id="rewards-content">
+      <h3 id="coins-display">Coins: 0</h3>
+      <p>Earn coins on every order 💰</p>
+       <div id="rewards-container" class="rewards-grid"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MOBILE BOTTOM NAVBAR -->
+<div id="mobile-bottom-nav" >
+
+  <div class="nav-item" id="mobile-orders">
+    <i class="fa-solid fa-box"></i>
+    <span>Orders</span>
+  </div>
+
+  <div class="nav-item" id="mobile-rewards">
+    <i class="fa-solid fa-gift"></i>
+    <span>Rewards</span>
+  </div>
+
+  <div class="nav-item" id="mobile-contact">
+    <i class="fa-solid fa-headset"></i>
+    <span>Contact</span>
+  </div>
+
+
+</div>
+
+<!-- GLOBAL ALERT POPUP -->
+<div id="custom-alert" class="custom-alert hidden">
+  <div class="alert-box">
+    <p id="alert-message"></p>
+    <button id="alert-ok">OK</button>
+  </div>
+</div>
+
+<!--item added cart popup-->
+<div id="toast" class="toast hidden">
+  <span id="toast-message">Item added to cart</span>
+  <button id="toast-close">&times;</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js"></script>
+    <script src="user.js"></script>
+</body>
+</html>
