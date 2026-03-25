@@ -103,7 +103,7 @@ googleLoginBtn.addEventListener("click", async () => {
 await supabaseClient.auth.signInWithOAuth({
 provider: "google",
 options: {
-redirectTo: window.location.origin + "/user.html"
+redirectTo: "https://github.com/NooB-Ronit/restraunt-v2"
 }
 })
 
